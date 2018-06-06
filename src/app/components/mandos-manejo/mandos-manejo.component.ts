@@ -1,26 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-// Declaramos las variables para jQuery
-declare var jQuery:any;
-declare var $:any;
-
-// Declaramos las variables para TweenMax
-declare var TweenLite:any;
-declare var TweenMax:any;
-declare var TimelineMax:any;
-declare var Linear:any;
-declare var Power0:any;
-
-
+declare var $: any;
 
 @Component({
-  selector: 'simulador-mandos-manejo',
+  selector: 'app-mandos-manejo',
   templateUrl: './mandos-manejo.component.html',
   styleUrls: ['./mandos-manejo.component.less']
 })
-export class MandosManejoComponent {
-  
-	
+export class MandosManejoComponent implements OnInit {
+
+  ngOnInit() {
+    $('.rotarySwitch').rotaryswitch();
+  }
 
 
 }

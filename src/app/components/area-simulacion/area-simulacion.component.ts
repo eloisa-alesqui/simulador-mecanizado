@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'simulador-area-simulacion',
+  selector: 'app-area-simulacion',
   templateUrl: './area-simulacion.component.html',
   styleUrls: ['./area-simulacion.component.less']
 })
