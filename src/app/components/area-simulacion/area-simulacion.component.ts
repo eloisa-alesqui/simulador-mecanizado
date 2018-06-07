@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./area-simulacion.component.less']
 })
 export class AreaSimulacionComponent {
-  
+
 
 
 }

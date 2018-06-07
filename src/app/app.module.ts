@@ -8,6 +8,7 @@ import { AreaSimulacionComponent } from './components/area-simulacion/area-simul
 import { AreaTrabajoMecanizadoComponent } from './components/area-trabajo-mecanizado/area-trabajo-mecanizado.component';
 import { MandosManejoComponent } from './components/mandos-manejo/mandos-manejo.component';
 import { MandosManejoPosicionComponent } from './components/mandos-manejo-posicion/mandos-manejo-posicion.component';
+import { MandosManejoModoComponent } from './components/mandos-manejo-modo/mandos-manejo-modo.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MandosManejoPosicionComponent } from './components/mandos-manejo-posici
     AreaSimulacionComponent,
     AreaTrabajoMecanizadoComponent,
     MandosManejoComponent,
-    MandosManejoPosicionComponent
+    MandosManejoPosicionComponent,
+    MandosManejoModoComponent
   ],
   imports: [
     BrowserModule

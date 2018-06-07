@@ -1,17 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-
-declare var $: any;
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-mandos-manejo',
   templateUrl: './mandos-manejo.component.html',
   styleUrls: ['./mandos-manejo.component.less']
 })
-export class MandosManejoComponent implements OnInit {
-
-  ngOnInit() {
-    $('.rotarySwitch').rotaryswitch();
-  }
-
+export class MandosManejoComponent {
 
 }

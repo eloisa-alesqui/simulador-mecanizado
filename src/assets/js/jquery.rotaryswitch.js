@@ -40,7 +40,7 @@ limitations under the License.
 			switchButton:  '<div class="switch"></div>',
 			overlay: '<div class="overlay"></div>',
 			marks: '<div class="marks"></div>',
-			mark: '<div class="mark"></div>'
+			mark: '<div class="mark">hola</div>'
 		};
 		this.mousePosition = {x: -1, y: -1};
 		this.switchDeg = 0;
@@ -124,10 +124,10 @@ limitations under the License.
 				degPerStep = this.degPerStep * this.options.step,
 				marks = $(this.htmlStructure.marks);
 			
-			for (; i < len; i += 1) {
-				deg += degPerStep;
+			for (; i <= len; i += 1) {
 				var mark = $(this.htmlStructure.mark).css({'transform': 'rotate('+deg+'deg) translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px)'});
 				marks.append(mark);
+				deg += degPerStep;
 			}
 						
 			this.domElements.main.append(marks);
@@ -297,10 +297,11 @@ limitations under the License.
 		calculateSwitchDeg: function() {
 			var offset =  this.domElements.main.offset(),
 				radians = Math.atan2(this.mousePosition.x - (offset.left + (this.domElements.main.width()/2)), this.mousePosition.y - (offset.top + (this.domElements.main.height()/2)));
-			
+
 			if (this.mousePosition.x !== -1) {
 				this.switchDeg = (radians * (180 / Math.PI) * -1) + 180;
 			}
+
 		},
 		
 		/**
@@ -367,6 +368,7 @@ limitations under the License.
 			}
 
 			rotateString = ['rotate(', deg, 'deg)'].join('');
+
 			this.domElements.switchButton.css({
 				'transform': rotateString,
 				'-webkit-transform': rotateString,
