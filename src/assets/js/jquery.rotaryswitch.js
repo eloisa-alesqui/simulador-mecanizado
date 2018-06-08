@@ -127,17 +127,17 @@ limitations under the License.
 			for (; i <= len; i += 1) {
 				var mark;
 				if (i == 0) {
-					mark = $('<div class="mark">A</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px) rotate(' + (360-deg) + 'deg)'});
+					mark = $('<div class="mark">AUT</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.05)) +'px) rotate(' + (360-deg) + 'deg) translate(-'+ (this.domElements.main.width()*0.2) +'px, 0)'});
 				} else if (i == 1) {
-					mark = $('<div class="mark">JOG</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px) rotate(' + (360-deg) + 'deg)  translate(-'+ (this.domElements.main.width()*0.1) +'px, 0)'});
+					mark = $('<div class="mark">JOG</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.05)) +'px) rotate(' + (360-deg) + 'deg)  translate(-'+ (this.domElements.main.width()*0.15) +'px, 0)'});
 				} else if (i == 2) {
-					mark = $('<div class="mark">1</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px) rotate(' + (360-deg) + 'deg)'});
+					mark = $('<div class="mark">1</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.05)) +'px) rotate(' + (360-deg) + 'deg)'});
 				} else if (i == 3) {
-					mark = $('<div class="mark">10</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px) rotate(' + (360-deg) + 'deg)'});
+					mark = $('<div class="mark">10</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.05)) +'px) rotate(' + (360-deg) + 'deg)'});
 				} else if (i == 4) {
-					mark = $('<div class="mark">100</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px) rotate(' + (360-deg) + 'deg)'});
+					mark = $('<div class="mark">100</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.05)) +'px) rotate(' + (360-deg) + 'deg)'});
 				} else if (i == 5) {
-					mark = $('<div class="mark">R</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.1)) +'px) rotate(' + (360-deg) + 'deg)'});
+					mark = $('<div class="mark">POM</div>').css({'transform': 'rotate(' + deg + 'deg)  translate(0, -'+ (this.domElements.main.width()/2 + (this.domElements.main.width()*0.05)) +'px) rotate(' + (360-deg) + 'deg)'});
 				}
 				
 				marks.append(mark);

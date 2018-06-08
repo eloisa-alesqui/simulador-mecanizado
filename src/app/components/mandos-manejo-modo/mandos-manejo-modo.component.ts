@@ -52,7 +52,7 @@ export class MandosManejoModoComponent implements OnInit {
 				}
 			}
 		}
-		const marginLeftRotarySwitch = (this.contenedor.nativeElement.offsetWidth - tamanoRotarySwitch) / 3;
+		const marginLeftRotarySwitch = (this.contenedor.nativeElement.offsetWidth - tamanoRotarySwitch) / 2.5;
 		$('.rotaryswitchPlugin.big').css('margin-left', marginLeftRotarySwitch + 'px');
 
 		// Se dibujan las marcas con los diferentes modos

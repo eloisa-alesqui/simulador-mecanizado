@@ -9,6 +9,9 @@ import { AreaTrabajoMecanizadoComponent } from './components/area-trabajo-mecani
 import { MandosManejoComponent } from './components/mandos-manejo/mandos-manejo.component';
 import { MandosManejoPosicionComponent } from './components/mandos-manejo-posicion/mandos-manejo-posicion.component';
 import { MandosManejoModoComponent } from './components/mandos-manejo-modo/mandos-manejo-modo.component';
+import { MandosManejoBotoneraMovimientosComponent } from './components/mandos-manejo-botonera-movimientos/mandos-manejo-botonera-movimientos.component';
+import { MandosManejoRunStopComponent } from './components/mandos-manejo-run-stop/mandos-manejo-run-stop.component';
+import { MandosManejoSecuenciaAutomaticoComponent } from './components/mandos-manejo-secuencia-automatico/mandos-manejo-secuencia-automatico.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { MandosManejoModoComponent } from './components/mandos-manejo-modo/mando
     AreaTrabajoMecanizadoComponent,
     MandosManejoComponent,
     MandosManejoPosicionComponent,
-    MandosManejoModoComponent
+	MandosManejoModoComponent,
+	MandosManejoBotoneraMovimientosComponent,
+	MandosManejoRunStopComponent,
+	MandosManejoSecuenciaAutomaticoComponent
   ],
   imports: [
     BrowserModule
