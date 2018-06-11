@@ -9,7 +9,8 @@
 				<button><i>Herramientas</i></button>
 			</td>
 			<td>
-				<button><i>Decalaje Origen</i></button>
+				<button (click)="abrirAreaDecalajeOrigen()"><i>Decalaje Origen</i></button>
+				<app-menu-decalaje-origen *ngIf="visibleAreaDecalajeOrigen" (close)="cerrarAreaDecalajeOrigen()"></app-menu-decalaje-origen>
 			</td>
 			<td>
 				<button><i>Parámetros R</i></button>

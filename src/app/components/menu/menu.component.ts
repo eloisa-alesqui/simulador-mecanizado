@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
 	visibleAreaProgramar: boolean = false;
+	visibleAreaDecalajeOrigen: boolean = false;
 
 	abrirAreaProgramar() {
         this.visibleAreaProgramar = true;
@@ -14,6 +15,14 @@ export class MenuComponent {
 	
 	cerrarAreaProgramar() {
         this.visibleAreaProgramar = false;
+	}
+	
+	abrirAreaDecalajeOrigen() {
+        this.visibleAreaDecalajeOrigen = true;
+	}
+	
+	cerrarAreaDecalajeOrigen() {
+        this.visibleAreaDecalajeOrigen = false;
     }
 
 }

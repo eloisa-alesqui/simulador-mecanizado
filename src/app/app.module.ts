@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuProgramarComponent } from './components/menu-programar/menu-programar.component';
+import { MenuDecalajeOrigenComponent } from './components/menu-decalaje-origen/menu-decalaje-origen.component';
 import { AreaSimulacionComponent } from './components/area-simulacion/area-simulacion.component';
 import { AreaTrabajoMecanizadoComponent } from './components/area-trabajo-mecanizado/area-trabajo-mecanizado.component';
 import { MandosManejoComponent } from './components/mandos-manejo/mandos-manejo.component';
@@ -15,7 +16,7 @@ import { MandosManejoRunStopComponent } from './components/mandos-manejo-run-sto
 import { MandosManejoSecuenciaAutomaticoComponent } from './components/mandos-manejo-secuencia-automatico/mandos-manejo-secuencia-automatico.component';
 
 import { SecuenciaService } from './services/secuencia.service';
-
+import { DecalajeOrigenService } from './services/decalaje-origen.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SecuenciaService } from './services/secuencia.service';
     AppComponent,
 	MenuComponent,
 	MenuProgramarComponent,
+	MenuDecalajeOrigenComponent,
     AreaSimulacionComponent,
     AreaTrabajoMecanizadoComponent,
     MandosManejoComponent,
@@ -36,7 +38,7 @@ import { SecuenciaService } from './services/secuencia.service';
 	BrowserModule,
 	FormsModule
   ],
-  providers: [SecuenciaService],
+  providers: [SecuenciaService, DecalajeOrigenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

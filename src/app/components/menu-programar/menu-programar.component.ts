@@ -7,7 +7,7 @@ import { SecuenciaService } from '../../services/secuencia.service';
   styleUrls: ['./menu-programar.component.less']
 })
 export class MenuProgramarComponent {
-	@Output() close;
+	@Output() close: EventEmitter<String>;
 	nuevaSecuencia: String;
 
 	constructor(private secuenciaService : SecuenciaService) {

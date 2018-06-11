@@ -1,0 +1,14 @@
+<div class="modal">
+	<div class="margen10 alineadoIzq">
+		Introduce el valor del decalaje origen:
+	</div>
+	<div class="margen10">
+		X: <input type="number" [(ngModel)]="nuevoDecalajeOrigenX">
+		Z: <input type="number" [(ngModel)]="nuevoDecalajeOrigenZ">
+	</div>
+	<div class="margen10">
+		<button type="button" (click)="aceptar()">Aceptar</button>
+		<button type="button" (click)="cancelar()">Cancelar</button>
+	</div>
+</div>
+<div class="overlay"></div>
