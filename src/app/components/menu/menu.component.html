@@ -2,7 +2,8 @@
 	<table>
 		<tr>
 			<td>
-				<button><i>Programar</i></button>
+				<button (click)="abrirAreaProgramar()"><i>Programar</i></button>
+				<app-menu-programar *ngIf="visibleAreaProgramar" (close)="cerrarAreaProgramar()"></app-menu-programar>
 			</td>
 			<td>
 				<button><i>Herramientas</i></button>

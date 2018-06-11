@@ -6,7 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent {
+	visibleAreaProgramar: boolean = false;
 
-
+	abrirAreaProgramar() {
+        this.visibleAreaProgramar = true;
+	}
+	
+	cerrarAreaProgramar() {
+        this.visibleAreaProgramar = false;
+    }
 
 }

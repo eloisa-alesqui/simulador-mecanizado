@@ -1,0 +1,13 @@
+<div class="modal">
+	<div class="margen10 alineadoIzq">
+		Introduce el programa a ejecutar:
+	</div>
+	<div class="margen10">
+		<textarea [(ngModel)]="nuevaSecuencia"></textarea>
+	</div>
+	<div class="margen10">
+		<button type="button" (click)="aceptar()">Aceptar</button>
+		<button type="button" (click)="cancelar()">Cancelar</button>
+	</div>
+</div>
+<div class="overlay"></div>

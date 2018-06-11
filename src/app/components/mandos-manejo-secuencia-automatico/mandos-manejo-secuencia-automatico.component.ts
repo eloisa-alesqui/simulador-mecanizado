@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SecuenciaService } from '../../services/secuencia.service';
+
 
 @Component({
 	selector: 'app-mandos-manejo-secuencia-automatico',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
 	styleUrls: ['./mandos-manejo-secuencia-automatico.component.less']
 })
 export class MandosManejoSecuenciaAutomaticoComponent  {
+
+	constructor(private secuenciaService : SecuenciaService) {
+		
+	}
 
 }
