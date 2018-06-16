@@ -17,6 +17,7 @@ import { MandosManejoSecuenciaAutomaticoComponent } from './components/mandos-ma
 
 import { SecuenciaService } from './services/secuencia.service';
 import { DecalajeOrigenService } from './services/decalaje-origen.service';
+import { DesplazamientoService } from './services/desplazamiento.service';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { DecalajeOrigenService } from './services/decalaje-origen.service';
 	BrowserModule,
 	FormsModule
   ],
-  providers: [SecuenciaService, DecalajeOrigenService],
+  providers: [SecuenciaService, DecalajeOrigenService, DesplazamientoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
