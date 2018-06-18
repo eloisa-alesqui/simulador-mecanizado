@@ -52,7 +52,8 @@ export class AreaSimulacionComponent implements OnInit {
       };
 
       var render = function () {
-        context.clearRect(goma.x, goma.y, goma.width, goma.height);
+		context.fillStyle = "rgb(255,255,255)";
+		context.fillRect(goma.x, goma.y, goma.width, goma.height);
         requestAnimationFrame(render);
       };
       render();
