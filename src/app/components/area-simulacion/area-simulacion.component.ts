@@ -1,108 +1,128 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DesplazamientoService } from '../../services/desplazamiento.service';
+import { ActualizacionPosicionHerramientaService } from '../../services/actualizacion-posicion-herramienta.service';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as globals from '../../globals';
 
 
 @Component({
-  selector: 'app-area-simulacion',
-  templateUrl: './area-simulacion.component.html',
-  styleUrls: ['./area-simulacion.component.less']
+	selector: 'app-area-simulacion',
+	templateUrl: './area-simulacion.component.html',
+	styleUrls: ['./area-simulacion.component.less']
 })
 export class AreaSimulacionComponent implements OnInit {
 
-  subscription: Subscription;
-  @ViewChild('herramienta') herramienta: ElementRef;
-  @ViewChild('areaSimulacion') areaSimulacion: ElementRef;
-  @ViewChild('areaSimulacionCanvas') areaSimulacionCanvas: ElementRef;
+	subscription: Subscription;
+	@ViewChild('herramienta') herramienta: ElementRef;
+	@ViewChild('areaSimulacion') areaSimulacion: ElementRef;
+	@ViewChild('areaSimulacionCanvas') areaSimulacionCanvas: ElementRef;
 
-  constructor(private desplazamientoService: DesplazamientoService) {
+	constructor(private desplazamientoService: DesplazamientoService,
+		private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService) {
 
 
-    this.subscription = this.desplazamientoService.getDesplazamiento().subscribe(desplazamiento => {
-      
-      // Se procede al movimiento de la herramienta
-      let herramienta: SVGRectElement = this.herramienta.nativeElement;
+		this.subscription = this.desplazamientoService.getDesplazamiento().subscribe(desplazamiento => {
 
-      let desplazamientoX: number = parseFloat(desplazamiento.x);
-      let desplazamientoY: number = parseFloat(desplazamiento.y);
+			// Se procede al movimiento de la herramienta
+			let herramienta: SVGRectElement = this.herramienta.nativeElement;
 
-      let posicionXInicial: number = parseFloat(herramienta.getAttribute("x"));
-      let posicionXFinal: number = desplazamientoX + posicionXInicial;
-      herramienta.setAttribute('x', posicionXFinal.toString());
-      let posicionYInicial: number = parseFloat(herramienta.getAttribute("y"));
-      let posicionYFinal: number = desplazamiento.y + posicionYInicial;
-      herramienta.setAttribute('y', posicionYFinal.toString());
+			let desplazamientoX: number = parseFloat(desplazamiento.x);
+			let desplazamientoY: number = parseFloat(desplazamiento.y);
 
-      // Se procede al borrado de la pieza
-      var canvas =  this.areaSimulacionCanvas.nativeElement;
-      var context = canvas.getContext('2d');
+			let posicionXInicial: number = parseFloat(herramienta.getAttribute("x"));
+			let posicionXFinal: number = desplazamientoX + posicionXInicial;
+			herramienta.setAttribute('x', posicionXFinal.toString());
+			let posicionYInicial: number = parseFloat(herramienta.getAttribute("y"));
+			let posicionYFinal: number = desplazamiento.y + posicionYInicial;
+			herramienta.setAttribute('y', posicionYFinal.toString());
 
-      var requestAnimationFrame =
-        function (callback) {
-          return setTimeout(callback, 1);
-        };
+			// Se actualiza la posicion
+			//let areaSimulacion = this.areaSimulacion.nativeElement;
+			//let anchoAreaSimulacion = areaSimulacion.offsetWidth;
+			//let altoAreaSimulacion = areaSimulacion.offsetHeight;
+			//this.actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta
+			//	(altoAreaSimulacion - posicionYFinal, posicionXFinal);
 
-      var goma = {
-        'x': posicionXInicial,
-        'y': posicionYInicial,
-        'width': parseFloat(herramienta.getAttribute("width")),
-        'height': parseFloat(herramienta.getAttribute("height"))
-      };
 
-      var render = function () {
-		context.fillStyle = "rgb(255,255,255)";
-		context.fillRect(goma.x, goma.y, goma.width, goma.height);
-        requestAnimationFrame(render);
-      };
-      render();
+			// Se procede al borrado de la pieza
+			var canvas = this.areaSimulacionCanvas.nativeElement;
+			var context = canvas.getContext('2d');
 
-      var animate = function (prop, val, duration) {
-        // Calculos requeridos para la funcion step
-        var start = new Date().getTime();
-        var end = start + duration;
-        var current = goma[prop];
-        var distance = val - current;
+			var requestAnimationFrame =
+				function (callback) {
+					return setTimeout(callback, 1);
+				};
 
-        var step = function () {
-          var timestamp = new Date().getTime();
-          var progress = Math.min((duration - (end - timestamp)) / duration, 1);
-          goma[prop] = current + (distance * progress);
-          if (progress < 1) requestAnimationFrame(step);
-        };
+			var goma = {
+				'x': posicionXInicial,
+				'y': posicionYInicial,
+				'width': parseFloat(herramienta.getAttribute("width")),
+				'height': parseFloat(herramienta.getAttribute("height"))
+			};
 
-        return step();
-      };
+			let areaSimulacionn = this.areaSimulacion.nativeElement;
+			let actualizacionPosicionHerramientaService = this.actualizacionPosicionHerramientaService;
+			let i = 0;
 
-      // Borrado vertical
-      if (parseFloat(desplazamiento.x) == 0) {
-        animate('y', parseFloat(desplazamiento.y) + posicionYInicial, 1000);
-      }
+			var render = function () {
+				context.fillStyle = "rgb(255,255,255)";
+				context.fillRect(goma.x, goma.y, goma.width, goma.height);
+				// Se actualiza la posicion
+				if (i%10 == 0) {
+					actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
+					goma.x, goma.y);
+				}
+				i++;
+				requestAnimationFrame(render);
+			};
+			render();
 
-      // Borrado horizontal
-      else {
-        animate('x', parseFloat(desplazamiento.x) + posicionXInicial, 1000);
-      }
+			var animate = function (prop, val, duration) {
+				// Calculos requeridos para la funcion step
+				var start = new Date().getTime();
+				var end = start + duration;
+				var current = goma[prop];
+				var distance = val - current;
 
-    })
-  }
+				var step = function () {
+					var timestamp = new Date().getTime();
+					var progress = Math.min((duration - (end - timestamp)) / duration, 1);
+					goma[prop] = current + (distance * progress);
+					if (progress < 1) requestAnimationFrame(step);
+				};
 
-  ngOnInit() {
-    // Se redimensiona el canvas
-    let areaSimulacion = this.areaSimulacion.nativeElement;
-    let areaSimulacionCanvas = this.areaSimulacionCanvas.nativeElement;
+				return step();
+			};
 
-    let anchoAreaSimulacion = areaSimulacion.offsetWidth;
-    areaSimulacionCanvas.setAttributeNS(null, 'width', anchoAreaSimulacion);
+			// Borrado vertical
+			if (parseFloat(desplazamiento.x) == 0) {
+				animate('y', parseFloat(desplazamiento.y) + posicionYInicial, 5000);
+			}
 
-    let altoAreaSimulacion = areaSimulacion.offsetHeight;
-    areaSimulacionCanvas.setAttributeNS(null, 'height', altoAreaSimulacion);
+			// Borrado horizontal
+			else {
+				animate('x', parseFloat(desplazamiento.x) + posicionXInicial, 5000);
+			}
 
-    // Se dibuja la pieza
-    let ctx = areaSimulacionCanvas.getContext('2d');
-    ctx.fillStyle = 'green';
-    ctx.fillRect(0, altoAreaSimulacion - globals.ALTO_PIEZA, globals.ANCHO_PIEZA, globals.ALTO_PIEZA);
-  }
+		})
+	}
+
+	ngOnInit() {
+		// Se redimensiona el canvas
+		let areaSimulacion = this.areaSimulacion.nativeElement;
+		let areaSimulacionCanvas = this.areaSimulacionCanvas.nativeElement;
+
+		let anchoAreaSimulacion = areaSimulacion.offsetWidth;
+		areaSimulacionCanvas.setAttributeNS(null, 'width', anchoAreaSimulacion);
+
+		let altoAreaSimulacion = areaSimulacion.offsetHeight;
+		areaSimulacionCanvas.setAttributeNS(null, 'height', altoAreaSimulacion);
+
+		// Se dibuja la pieza
+		let ctx = areaSimulacionCanvas.getContext('2d');
+		ctx.fillStyle = 'green';
+		ctx.fillRect(0, altoAreaSimulacion - globals.ALTO_PIEZA, globals.ANCHO_PIEZA, globals.ALTO_PIEZA);
+	}
 
 }

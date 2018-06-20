@@ -18,6 +18,7 @@ import { MandosManejoSecuenciaAutomaticoComponent } from './components/mandos-ma
 import { SecuenciaService } from './services/secuencia.service';
 import { DecalajeOrigenService } from './services/decalaje-origen.service';
 import { DesplazamientoService } from './services/desplazamiento.service';
+import { ActualizacionPosicionHerramientaService } from './services/actualizacion-posicion-herramienta.service';
 
 
 @NgModule({
@@ -39,7 +40,12 @@ import { DesplazamientoService } from './services/desplazamiento.service';
 	BrowserModule,
 	FormsModule
   ],
-  providers: [SecuenciaService, DecalajeOrigenService, DesplazamientoService],
+  providers: [
+	  SecuenciaService, 
+	  DecalajeOrigenService, 
+	  DesplazamientoService,
+	  ActualizacionPosicionHerramientaService
+	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
