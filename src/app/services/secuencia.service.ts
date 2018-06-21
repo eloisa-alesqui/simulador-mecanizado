@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SecuenciaService {
-
-	secuencia: String;
+	private secuencia: String;
 
 	constructor() {
 		this.secuencia = "";

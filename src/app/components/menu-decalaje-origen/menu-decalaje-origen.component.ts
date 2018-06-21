@@ -7,12 +7,14 @@ import { DecalajeOrigenService } from '../../services/decalaje-origen.service';
   styleUrls: ['./menu-decalaje-origen.component.less']
 })
 export class MenuDecalajeOrigenComponent {
-	@Output() close: EventEmitter<String>;
-	nuevoDecalajeOrigenX: number;
-	nuevoDecalajeOrigenZ: number;
+	@Output() private close: EventEmitter<String>;
+	private nuevoDecalajeOrigenX: number;
+	private nuevoDecalajeOrigenZ: number;
 
 	constructor(private decalajeOrigenService : DecalajeOrigenService) {
 		this.close  = new EventEmitter<String>();
+		this.nuevoDecalajeOrigenX = decalajeOrigenService.getDecalajeOrigenX();
+		this.nuevoDecalajeOrigenZ = decalajeOrigenService.getDecalajeOrigenZ();
 	}
 
     aceptar() {

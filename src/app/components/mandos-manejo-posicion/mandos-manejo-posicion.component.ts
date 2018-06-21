@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MandosManejoPosicionComponent {
 
-	x:string = '0';
-	z:string = '0';
-	subscription: Subscription;
+	private x: string = '0';
+	private z: string = '0';
+	private subscription: Subscription;
 
 	constructor(private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService) {
 		this.subscription = this.actualizacionPosicionHerramientaService.getActualizacionPosicionHerramienta().subscribe(posicion => {

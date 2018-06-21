@@ -9,12 +9,12 @@ declare var $: any;
 })
 export class MandosManejoModoComponent implements OnInit {
 
-	@ViewChild('contenedor') contenedor: ElementRef;
+	@ViewChild('contenedor') private contenedor: ElementRef;
 
 	ngOnInit() {
 
 		// Se crea el rotary switch
-		const rotarySwitch = $('.rotarySwitch').rotaryswitch({
+		let rotarySwitch = $('.rotarySwitch').rotaryswitch({
 			// Minimal value
 			minimum: 0,
 			// Maximum value
@@ -40,19 +40,19 @@ export class MandosManejoModoComponent implements OnInit {
 		const rotarySwitchData = rotarySwitch.data('plugin_rotaryswitch');
 
 		// Se ajusta el tamano y la posicion del rotary switch
-		const ss = document.styleSheets;
-		const anchuraContenedor = this.contenedor.nativeElement.offsetWidth;
-		const tamanoRotarySwitch = anchuraContenedor * 0.45;
-		for (let i = 0; i < ss.length; i++) {
-			const rules = (<CSSStyleSheet>ss[i]).cssRules || (<CSSStyleSheet>ss[i]).rules;
-			for (let j = 0; j < rules.length; j++) {
+		let ss: StyleSheetList = document.styleSheets;
+		let anchuraContenedor: number = this.contenedor.nativeElement.offsetWidth;
+		let tamanoRotarySwitch: number = anchuraContenedor * 0.45;
+		for (let i: number = 0; i < ss.length; i++) {
+			let rules: CSSRuleList = (<CSSStyleSheet>ss[i]).cssRules || (<CSSStyleSheet>ss[i]).rules;
+			for (let j: number = 0; j < rules.length; j++) {
 				if ((<CSSStyleRule>rules[j]).selectorText === '.rotaryswitchPlugin.big') {
 					(<CSSStyleRule>rules[j]).style.width = tamanoRotarySwitch + 'px';
 					(<CSSStyleRule>rules[j]).style.height = tamanoRotarySwitch + 'px';
 				}
 			}
 		}
-		const marginLeftRotarySwitch = (this.contenedor.nativeElement.offsetWidth - tamanoRotarySwitch) / 2.5;
+		let marginLeftRotarySwitch: number = (this.contenedor.nativeElement.offsetWidth - tamanoRotarySwitch) / 2.5;
 		$('.rotaryswitchPlugin.big').css('margin-left', marginLeftRotarySwitch + 'px');
 
 		// Se dibujan las marcas con los diferentes modos

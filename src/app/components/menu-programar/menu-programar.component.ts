@@ -7,8 +7,8 @@ import { SecuenciaService } from '../../services/secuencia.service';
   styleUrls: ['./menu-programar.component.less']
 })
 export class MenuProgramarComponent {
-	@Output() close: EventEmitter<String>;
-	nuevaSecuencia: String;
+	@Output() private close: EventEmitter<String>;
+	private nuevaSecuencia: String;
 
 	constructor(private secuenciaService : SecuenciaService) {
 		this.close  = new EventEmitter<String>();

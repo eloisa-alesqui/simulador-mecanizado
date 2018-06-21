@@ -4,13 +4,18 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class DesplazamientoService {
-    private subject = new Subject<any>();
+    private subject: Subject<Desplazamiento> = new Subject<Desplazamiento>();
 
     sendDesplazamiento(x: number, y: number) {
         this.subject.next({ 'x': x, 'y' : y });
     }
 
-    getDesplazamiento(): Observable<any> {
+    getDesplazamiento(): Observable<Desplazamiento> {
         return this.subject.asObservable();
     }
+}
+
+class Desplazamiento {
+	x: number;
+	y: number;
 }

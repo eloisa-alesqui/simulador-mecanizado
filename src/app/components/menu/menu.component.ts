@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent {
-	visibleAreaProgramar: boolean = false;
-	visibleAreaDecalajeOrigen: boolean = false;
+	private visibleAreaProgramar: boolean = false;
+	private visibleAreaDecalajeOrigen: boolean = false;
 
 	abrirAreaProgramar() {
         this.visibleAreaProgramar = true;
@@ -24,5 +24,4 @@ export class MenuComponent {
 	cerrarAreaDecalajeOrigen() {
         this.visibleAreaDecalajeOrigen = false;
     }
-
 }

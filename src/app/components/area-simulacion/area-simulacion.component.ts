@@ -27,8 +27,8 @@ export class AreaSimulacionComponent implements OnInit {
       // Se procede al movimiento de la herramienta
       let herramienta: SVGRectElement = this.herramienta.nativeElement;
 
-      let desplazamientoX: number = parseFloat(desplazamiento.x);
-      let desplazamientoY: number = parseFloat(desplazamiento.y);
+      let desplazamientoX: number = desplazamiento.x;
+      let desplazamientoY: number = desplazamiento.y;
 
       let posicionXInicial: number = parseFloat(herramienta.getAttribute("x"));
       let posicionXFinal: number = desplazamientoX + posicionXInicial;
@@ -42,11 +42,11 @@ export class AreaSimulacionComponent implements OnInit {
       let context: CanvasRenderingContext2D = canvas.getContext('2d');
 
       let requestAnimationFrame =
-        function (callback) {
+        function (callback: any): number {
           return setTimeout(callback, 1);
         };
 
-      var goma = {
+      let goma: Goma = {
         'x': posicionXInicial,
         'y': posicionYInicial,
         'width': parseFloat(herramienta.getAttribute("width")),
@@ -54,30 +54,30 @@ export class AreaSimulacionComponent implements OnInit {
       };
 
       // Variables usadas en la actualizacion de la posicion
-      let areaSimulacion = this.areaSimulacion.nativeElement;
-      let anchoAreaSimulacion = areaSimulacion.offsetWidth;
-      let altoAreaSimulacion = areaSimulacion.offsetHeight;
-      let actualizacionPosicionHerramientaService = this.actualizacionPosicionHerramientaService;
+      let areaSimulacion: HTMLDivElement = this.areaSimulacion.nativeElement;
+      let anchoAreaSimulacion: number = areaSimulacion.offsetWidth;
+      let altoAreaSimulacion: number = areaSimulacion.offsetHeight;
+      let actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService = this.actualizacionPosicionHerramientaService;
 
-      var render = function () {
+      let render = function (): void {
         context.fillStyle = "rgb(255,255,255)";
         context.fillRect(goma.x, goma.y, goma.width, goma.height);
         requestAnimationFrame(render);
       };
       render();
 
-      var animate = function (prop, val, duration) {
+      let animate = function (prop: string, val: number, duration: number): void {
         // Calculos requeridos para la funcion step
-        var start = new Date().getTime();
-        var end = start + duration;
-        var current = goma[prop];
-        var distance = val - current;
+        let start: number = new Date().getTime();
+        let end: number = start + duration;
+        let current: number = goma[prop];
+        let distance: number = val - current;
 
         let i: number = 0;
 
-        var step = function () {
-          var timestamp = new Date().getTime();
-          var progress = Math.min((duration - (end - timestamp)) / duration, 1);
+        let step = function () : void {
+          let timestamp: number = new Date().getTime();
+          let progress: number = Math.min((duration - (end - timestamp)) / duration, 1);
           goma[prop] = current + (distance * progress);
           if (progress < 1) {
             // Se actualiza la posicion de la herramienta cada 10 saltos
@@ -98,15 +98,9 @@ export class AreaSimulacionComponent implements OnInit {
         return step();
       };
 
-      // Borrado vertical
-      if (parseFloat(desplazamiento.x) == 0) {
-        animate('y', parseFloat(desplazamiento.y) + posicionYInicial, 5000);
-      }
-
-      // Borrado horizontal
-      else {
-        animate('x', parseFloat(desplazamiento.x) + posicionXInicial, 5000);
-      }
+      // Borrado 
+		animate('x', desplazamiento.x + posicionXInicial, 5000);
+		animate('y', desplazamiento.y + posicionYInicial, 5000);
 
     })
   }
@@ -135,4 +129,11 @@ export class AreaSimulacionComponent implements OnInit {
       altoAreaSimulacion - posicionYInicial, posicionXInicial);
   }
 
+}
+
+class Goma {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
 }
