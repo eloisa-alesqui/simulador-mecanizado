@@ -16,8 +16,8 @@ export class MandosManejoPosicionComponent {
 
 	constructor(private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService) {
 		this.subscription = this.actualizacionPosicionHerramientaService.getActualizacionPosicionHerramienta().subscribe(posicion => {
-			this.x = posicion.x.toFixed(2);
-			this.z = posicion.z.toFixed(2);
+			this.x = posicion.x.toFixed(1);
+			this.z = posicion.z.toFixed(1);
 		});
 	}
 
