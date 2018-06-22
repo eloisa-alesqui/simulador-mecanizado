@@ -19,6 +19,7 @@ import { SecuenciaService } from './services/secuencia.service';
 import { DecalajeOrigenService } from './services/decalaje-origen.service';
 import { DesplazamientoService } from './services/desplazamiento.service';
 import { ActualizacionPosicionHerramientaService } from './services/actualizacion-posicion-herramienta.service';
+import { VelocidadService } from './services/velocidad.service';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ActualizacionPosicionHerramientaService } from './services/actualizacio
 	  SecuenciaService, 
 	  DecalajeOrigenService, 
 	  DesplazamientoService,
-	  ActualizacionPosicionHerramientaService
+	  ActualizacionPosicionHerramientaService,
+	  VelocidadService
 	],
   bootstrap: [AppComponent]
 })

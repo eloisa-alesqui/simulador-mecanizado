@@ -16,7 +16,7 @@
 				<button (click)="moverHerramientaIzquierda()">Z-</button>
 			</td>
 			<td>
-				<button><i>Rapid</i></button>
+				<button #velocidadBtn (click)="cambiarVelocidad()" [ngClass]="{'velocidadRapida': this.velocidadService.getVelocidad() == this.VELOCIDAD_RAPIDA }"><i>Rapid</i></button>
 			</td>
 			<td>
 				<button (click)="moverHerramientaDerecha()">Z+</button>

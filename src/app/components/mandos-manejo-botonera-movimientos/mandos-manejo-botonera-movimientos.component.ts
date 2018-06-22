@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DesplazamientoService } from '../../services/desplazamiento.service';
+import { VelocidadService } from '../../services/velocidad.service';
+
+import * as globals from '../../globals';
+
 
 @Component({
 	selector: 'app-mandos-manejo-botonera-movimietos',
@@ -8,7 +12,11 @@ import { DesplazamientoService } from '../../services/desplazamiento.service';
 })
 export class MandosManejoBotoneraMovimientosComponent {
 
-	constructor(private desplazamientoService: DesplazamientoService) {}
+	@ViewChild('velocidadBtn') herramienta: ElementRef;
+	VELOCIDAD_RAPIDA : number = globals.VELOCIDAD_RAPIDA;
+
+	constructor(private desplazamientoService: DesplazamientoService,
+		private velocidadService: VelocidadService) {}
 
 	moverHerramientaDerecha() {
 		this.desplazamientoService.sendDesplazamiento(100, 0);
@@ -26,5 +34,8 @@ export class MandosManejoBotoneraMovimientosComponent {
 		this.desplazamientoService.sendDesplazamiento(0, -100);
 	}
 
+	cambiarVelocidad() {
+		this.velocidadService.cambiarVelocidad();
+	}
 	
 }
