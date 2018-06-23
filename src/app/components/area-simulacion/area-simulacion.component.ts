@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DesplazamientoService } from '../../services/desplazamiento.service';
 import { ActualizacionPosicionHerramientaService } from '../../services/actualizacion-posicion-herramienta.service';
+import { VelocidadService } from '../../services/velocidad.service';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as globals from '../../globals';
@@ -19,7 +20,8 @@ export class AreaSimulacionComponent implements OnInit {
   @ViewChild('areaSimulacionCanvas') areaSimulacionCanvas: ElementRef;
 
   constructor(private desplazamientoService: DesplazamientoService,
-    private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService) {
+    private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService,
+    private velocidadService: VelocidadService) {
 
 
     this.subscription = this.desplazamientoService.getDesplazamiento().subscribe(desplazamiento => {
@@ -29,6 +31,15 @@ export class AreaSimulacionComponent implements OnInit {
 
       let desplazamientoX: number = desplazamiento.x;
       let desplazamientoY: number = desplazamiento.y;
+
+      // Se calcula el tiempo que durara el desplazamiento
+      let desplazamientoLongitud: number = Math.sqrt(Math.pow(desplazamiento.x, 2) + Math.pow(desplazamiento.y, 2));
+      let desplazamientoVelocidad: number = this.velocidadService.getVelocidad();
+      let desplazamientoTiempo = desplazamientoLongitud / desplazamientoVelocidad;
+
+      // Se aplica el tiempo a la animacion de la herramienta
+      herramienta.style.transitionDuration = desplazamientoTiempo + 's';
+
 
       let posicionXInicial: number = parseFloat(herramienta.getAttribute("x"));
       let posicionXFinal: number = desplazamientoX + posicionXInicial;
@@ -75,7 +86,7 @@ export class AreaSimulacionComponent implements OnInit {
 
         let i: number = 0;
 
-        let step = function () : void {
+        let step = function (): void {
           let timestamp: number = new Date().getTime();
           let progress: number = Math.min((duration - (end - timestamp)) / duration, 1);
           goma[prop] = current + (distance * progress);
@@ -99,26 +110,26 @@ export class AreaSimulacionComponent implements OnInit {
       };
 
       // Borrado 
-		animate('x', desplazamiento.x + posicionXInicial, 5000);
-		animate('y', desplazamiento.y + posicionYInicial, 5000);
+      animate('x', desplazamiento.x + posicionXInicial, desplazamientoTiempo * 1000);
+      animate('y', desplazamiento.y + posicionYInicial, desplazamientoTiempo * 1000);
 
     })
   }
 
   ngOnInit() {
     // Se redimensiona el canvas
-    let areaSimulacion = this.areaSimulacion.nativeElement;
-    let areaSimulacionCanvas = this.areaSimulacionCanvas.nativeElement;
+    let areaSimulacion: HTMLDivElement = this.areaSimulacion.nativeElement;
+    let areaSimulacionCanvas: HTMLCanvasElement = this.areaSimulacionCanvas.nativeElement;
 
-    let anchoAreaSimulacion = areaSimulacion.offsetWidth;
-    areaSimulacionCanvas.setAttributeNS(null, 'width', anchoAreaSimulacion);
+    let anchoAreaSimulacion: number = areaSimulacion.offsetWidth;
+    areaSimulacionCanvas.setAttribute('width', anchoAreaSimulacion.toString());
 
-    let altoAreaSimulacion = areaSimulacion.offsetHeight;
-    areaSimulacionCanvas.setAttributeNS(null, 'height', altoAreaSimulacion);
+    let altoAreaSimulacion: number = areaSimulacion.offsetHeight;
+    areaSimulacionCanvas.setAttribute('height', altoAreaSimulacion.toString());
 
     // Se dibuja la pieza
-    let ctx = areaSimulacionCanvas.getContext('2d');
-    ctx.fillStyle = 'green';
+    let ctx: CanvasRenderingContext2D = areaSimulacionCanvas.getContext('2d');
+    ctx.fillStyle = 'gray';
     ctx.fillRect(0, altoAreaSimulacion - globals.ALTO_PIEZA, globals.ANCHO_PIEZA, globals.ALTO_PIEZA);
 
     // Se actualiza la posicion de la herramienta al inicio de lasimulacion
@@ -132,8 +143,8 @@ export class AreaSimulacionComponent implements OnInit {
 }
 
 class Goma {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
