@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DesplazamientoService } from '../../services/desplazamiento.service';
 import { VelocidadService } from '../../services/velocidad.service';
+import { ModoService } from '../../services/modo.service';
 
 import * as globals from '../../globals';
 
@@ -16,22 +17,47 @@ export class MandosManejoBotoneraMovimientosComponent {
 	VELOCIDAD_RAPIDA : number = globals.VELOCIDAD_RAPIDA;
 
 	constructor(private desplazamientoService: DesplazamientoService,
-		private velocidadService: VelocidadService) {}
+		private velocidadService: VelocidadService,
+		private modoService: ModoService) {}
 
 	moverHerramientaDerecha() {
-		this.desplazamientoService.sendDesplazamiento(100, 0);
+		if (this.modoService.getModo() == globals.MODO_1) {
+			this.desplazamientoService.sendDesplazamiento(1, 0);
+		} else if (this.modoService.getModo() == globals.MODO_10) {
+			this.desplazamientoService.sendDesplazamiento(10, 0);
+		} else if (this.modoService.getModo() == globals.MODO_100) {
+			this.desplazamientoService.sendDesplazamiento(100, 0);
+		}
 	}
 
 	moverHerramientaAbajo() {
-		this.desplazamientoService.sendDesplazamiento(0, 100);
+		if (this.modoService.getModo() == globals.MODO_1) {
+			this.desplazamientoService.sendDesplazamiento(0, 1);
+		} else if (this.modoService.getModo() == globals.MODO_10) {
+			this.desplazamientoService.sendDesplazamiento(0, 10);
+		} else if (this.modoService.getModo() == globals.MODO_100) {
+			this.desplazamientoService.sendDesplazamiento(0, 100);
+		}
 	}
 
 	moverHerramientaIzquierda() {
-		this.desplazamientoService.sendDesplazamiento(-100, 0);
+		if (this.modoService.getModo() == globals.MODO_1) {
+			this.desplazamientoService.sendDesplazamiento(-1, 0);
+		} else if (this.modoService.getModo() == globals.MODO_10) {
+			this.desplazamientoService.sendDesplazamiento(-10, 0);
+		} else if (this.modoService.getModo() == globals.MODO_100) {
+			this.desplazamientoService.sendDesplazamiento(-100, 0);
+		}
 	}
 
 	moverHerramientaArriba() {
-		this.desplazamientoService.sendDesplazamiento(0, -100);
+		if (this.modoService.getModo() == globals.MODO_1) {
+			this.desplazamientoService.sendDesplazamiento(0, -1);
+		} else if (this.modoService.getModo() == globals.MODO_10) {
+			this.desplazamientoService.sendDesplazamiento(0, -10);
+		} else if (this.modoService.getModo() == globals.MODO_100) {
+			this.desplazamientoService.sendDesplazamiento(0, -100);
+		}
 	}
 
 	cambiarVelocidad() {

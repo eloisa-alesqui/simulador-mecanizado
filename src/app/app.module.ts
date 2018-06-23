@@ -20,6 +20,7 @@ import { DecalajeOrigenService } from './services/decalaje-origen.service';
 import { DesplazamientoService } from './services/desplazamiento.service';
 import { ActualizacionPosicionHerramientaService } from './services/actualizacion-posicion-herramienta.service';
 import { VelocidadService } from './services/velocidad.service';
+import { ModoService } from './services/modo.service';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { VelocidadService } from './services/velocidad.service';
 	  DecalajeOrigenService, 
 	  DesplazamientoService,
 	  ActualizacionPosicionHerramientaService,
-	  VelocidadService
+		VelocidadService,
+		ModoService
 	],
   bootstrap: [AppComponent]
 })

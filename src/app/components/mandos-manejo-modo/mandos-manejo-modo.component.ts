@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModoService } from '../../services/modo.service';
 
 declare var $: any;
 
@@ -10,6 +11,8 @@ declare var $: any;
 export class MandosManejoModoComponent implements OnInit {
 
 	@ViewChild('contenedor') private contenedor: ElementRef;
+
+	constructor(private modoService: ModoService) {}
 
 	ngOnInit() {
 
@@ -58,6 +61,10 @@ export class MandosManejoModoComponent implements OnInit {
 		// Se dibujan las marcas con los diferentes modos
 		rotarySwitchData.renderMarks();
 
+		let modoService: ModoService = this.modoService;
+		$("#modoInput").on( "change", function() {
+			modoService.setModo($( this ).val());
+		});
 
 	}
 
