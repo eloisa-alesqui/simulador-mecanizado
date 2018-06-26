@@ -48,14 +48,40 @@ export class AreaSimulacionComponent implements OnInit {
       let context: CanvasRenderingContext2D = canvas.getContext('2d');
 
       // Variables usadas en la actualizacion de la posicion
-      let points:string = herramienta.getAttribute('points');
+      let points: string = herramienta.getAttribute('points');
       let areaSimulacion: HTMLDivElement = this.areaSimulacion.nativeElement;
       let anchoAreaSimulacion: number = areaSimulacion.offsetWidth;
       let altoAreaSimulacion: number = areaSimulacion.offsetHeight;
       let actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService = this.actualizacionPosicionHerramientaService;
 
-      let actualizacionHecha: boolean = false;
       let i: number = 0;
+
+      let moverBorrar = function (progress: number) {
+        context.fillStyle = "rgb(255,255,255)";
+        context.beginPath();
+        let primerPunto: boolean = true;
+        let pointsStringInicial: string = points;
+        let pointsStringFinal: string = '';
+        let pointsArrayStringInicial: string[] = pointsStringInicial.split(' ');
+        pointsArrayStringInicial.forEach(function (pointStringInicial: string) {
+          let pointInicial: string[] = pointStringInicial.split(',');
+          let xInicial: number = parseFloat(pointInicial[0]);
+          let yInicial: number = parseFloat(pointInicial[1]);
+          let xFinal: number = xInicial + desplazamientoX * progress;
+          let yFinal: number = yInicial + desplazamientoY * progress;
+          pointsStringFinal = pointsStringFinal + xFinal + ',' + yFinal + ' ';
+          if (primerPunto) {
+            context.moveTo(xFinal, yFinal);
+            primerPunto = false;
+          } else {
+            context.lineTo(xFinal, yFinal);
+          }
+        });
+        pointsStringFinal = pointsStringFinal.trim();
+        herramienta.setAttribute('points', pointsStringFinal);
+        context.closePath();
+        context.fill();
+      }
 
       let requestAnimationFrame = function (callback: any): number {
         return setTimeout(callback, 1);
@@ -70,76 +96,25 @@ export class AreaSimulacionComponent implements OnInit {
           let timestamp: number = new Date().getTime();
           let progress: number = Math.min((duration - (end - timestamp)) / duration, 1);
           if (progress < 1) {
-
             // Se actualizan los puntos y se procede al borrado
-            context.fillStyle = "rgb(255,255,255)";
-            context.beginPath();
-            let primerPunto: boolean = true;
-            let pointsStringInicial: string = points;
-            let pointsStringFinal: string = '';
-            let pointsArrayStringInicial: string[] = pointsStringInicial.split(' ');
-            pointsArrayStringInicial.forEach(function (pointStringInicial: string) {
-              let pointInicial: string[] = pointStringInicial.split(',');
-              let xInicial: number = parseFloat(pointInicial[0]);
-              let yInicial: number = parseFloat(pointInicial[1]);
-              let xFinal: number = xInicial + desplazamientoX * progress;
-              let yFinal: number = yInicial + desplazamientoY * progress;
-              pointsStringFinal = pointsStringFinal + xFinal + ',' + yFinal + ' ';
-              if (primerPunto) {
-                context.moveTo(xFinal, yFinal);
-                primerPunto = false;
-              } else {
-                context.lineTo(xFinal, yFinal);
-              }
-            });
-            pointsStringFinal = pointsStringFinal.trim();
-            herramienta.setAttribute('points', pointsStringFinal);
-            context.closePath();
-            context.fill();
+            moverBorrar(progress);
 
             // Se actualiza la posicion de la herramienta cada 10 saltos
             if (i % 10 == 0) {
-              let posicionX: number = parseFloat(points.split(' ')[0].split(',')[0]) +  (desplazamientoX * progress);
-              let posicionY: number = parseFloat(points.split(' ')[0].split(',')[1]) +  (desplazamientoY * progress);
+              let posicionX: number = parseFloat(points.split(' ')[0].split(',')[0]) + (desplazamientoX * progress);
+              let posicionY: number = parseFloat(points.split(' ')[0].split(',')[1]) + (desplazamientoY * progress);
               actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
                 altoAreaSimulacion - posicionY, posicionX);
             }
             i++;
             requestAnimationFrame(step);
           } else {
-            if (!actualizacionHecha) {
-              // Se actualiza la posicion de la herramienta al final de la animacion
-              // para que quede correcta
-              actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
-                altoAreaSimulacion - posicionYFinal, posicionXFinal);
-              // Se actualizan los puntos y se procede al borrado
-              context.fillStyle = "rgb(255,255,255)";
-              context.beginPath();
-              let primerPunto: boolean = true;
-              let pointsStringInicial: string = points;
-              let pointsStringFinal: string = '';
-              let pointsArrayStringInicial: string[] = pointsStringInicial.split(' ');
-              pointsArrayStringInicial.forEach(function (pointStringInicial: string) {
-                let pointInicial: string[] = pointStringInicial.split(',');
-                let xInicial: number = parseFloat(pointInicial[0]);
-                let yInicial: number = parseFloat(pointInicial[1]);
-                let xFinal: number = xInicial + desplazamientoX;
-                let yFinal: number = yInicial + desplazamientoY;
-                pointsStringFinal = pointsStringFinal + xFinal + ',' + yFinal + ' ';
-                if (primerPunto) {
-                  context.moveTo(xFinal, yFinal);
-                  primerPunto = false;
-                } else {
-                  context.lineTo(xFinal, yFinal);
-                }
-              });
-              pointsStringFinal = pointsStringFinal.trim();
-              herramienta.setAttribute('points', pointsStringFinal);
-              context.closePath();
-              context.fill();
-
-              actualizacionHecha = true;
-            }
+            // Se actualiza la posicion de la herramienta al final de la animacion
+            // para que quede correcta
+            actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
+              altoAreaSimulacion - posicionYFinal, posicionXFinal);
+            // Se actualizan los puntos y se procede al borrado
+            moverBorrar(progress);
           }
         };
 
