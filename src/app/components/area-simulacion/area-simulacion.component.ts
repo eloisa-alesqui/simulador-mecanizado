@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DesplazamientoService } from '../../services/desplazamiento.service';
-import { ActualizacionPosicionHerramientaService } from '../../services/actualizacion-posicion-herramienta.service';
+import { PosicionHerramientaService } from '../../services/posicion-herramienta.service';
 import { VelocidadService } from '../../services/velocidad.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -20,7 +20,7 @@ export class AreaSimulacionComponent implements OnInit {
   @ViewChild('areaSimulacionCanvas') areaSimulacionCanvas: ElementRef;
 
   constructor(private desplazamientoService: DesplazamientoService,
-    private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService,
+    private posicionHerramientaService: PosicionHerramientaService,
     private velocidadService: VelocidadService) {
 
 
@@ -52,7 +52,7 @@ export class AreaSimulacionComponent implements OnInit {
       let areaSimulacion: HTMLDivElement = this.areaSimulacion.nativeElement;
       let anchoAreaSimulacion: number = areaSimulacion.offsetWidth;
       let altoAreaSimulacion: number = areaSimulacion.offsetHeight;
-      let actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService = this.actualizacionPosicionHerramientaService;
+      let posicionHerramientaService: PosicionHerramientaService = this.posicionHerramientaService;
 
       let i: number = 0;
 
@@ -103,16 +103,14 @@ export class AreaSimulacionComponent implements OnInit {
             if (i % 10 == 0) {
               let posicionX: number = parseFloat(points.split(' ')[0].split(',')[0]) + (desplazamientoX * progress);
               let posicionY: number = parseFloat(points.split(' ')[0].split(',')[1]) + (desplazamientoY * progress);
-              actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
-                altoAreaSimulacion - posicionY, posicionX);
+              posicionHerramientaService.cargarPosicionHerramienta(altoAreaSimulacion - posicionY, posicionX);
             }
             i++;
             requestAnimationFrame(step);
           } else {
             // Se actualiza la posicion de la herramienta al final de la animacion
             // para que quede correcta
-            actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
-              altoAreaSimulacion - posicionYFinal, posicionXFinal);
+            posicionHerramientaService.cargarPosicionHerramienta(altoAreaSimulacion - posicionYFinal, posicionXFinal);
             // Se actualizan los puntos y se procede al borrado
             moverBorrar(progress);
           }
@@ -147,8 +145,7 @@ export class AreaSimulacionComponent implements OnInit {
     let herramienta: SVGRectElement = this.herramienta.nativeElement;
     let posicionXInicial: number = parseFloat(herramienta.getAttribute('points').split(' ')[0].split(',')[0]);
     let posicionYInicial: number = parseFloat(herramienta.getAttribute('points').split(' ')[0].split(',')[1]);
-    this.actualizacionPosicionHerramientaService.sendActualizacionPosicionHerramienta(
-      altoAreaSimulacion - posicionYInicial, posicionXInicial);
+    this.posicionHerramientaService.cargarPosicionHerramienta(altoAreaSimulacion - posicionYInicial, posicionXInicial);
   }
 
 }

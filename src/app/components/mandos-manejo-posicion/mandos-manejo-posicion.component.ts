@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { ActualizacionPosicionHerramientaService } from '../../services/actualizacion-posicion-herramienta.service';
-import { Subscription } from 'rxjs/Subscription';
-
+import { PosicionHerramientaService } from '../../services/posicion-herramienta.service';
 
 @Component({
   selector: 'app-mandos-manejo-posicion',
@@ -10,15 +8,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MandosManejoPosicionComponent {
 
-	private x: string = '0';
-	private z: string = '0';
-	private subscription: Subscription;
-
-	constructor(private actualizacionPosicionHerramientaService: ActualizacionPosicionHerramientaService) {
-		this.subscription = this.actualizacionPosicionHerramientaService.getActualizacionPosicionHerramienta().subscribe(posicion => {
-			this.x = posicion.x.toFixed(1);
-			this.z = posicion.z.toFixed(1);
-		});
+	constructor(private posicionHerramientaService: PosicionHerramientaService) {
+		
 	}
 
 }

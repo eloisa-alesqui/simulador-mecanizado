@@ -18,7 +18,7 @@ import { MandosManejoSecuenciaAutomaticoComponent } from './components/mandos-ma
 import { SecuenciaService } from './services/secuencia.service';
 import { DecalajeOrigenService } from './services/decalaje-origen.service';
 import { DesplazamientoService } from './services/desplazamiento.service';
-import { ActualizacionPosicionHerramientaService } from './services/actualizacion-posicion-herramienta.service';
+import { PosicionHerramientaService } from './services/posicion-herramienta.service';
 import { VelocidadService } from './services/velocidad.service';
 import { ModoService } from './services/modo.service';
 
@@ -46,7 +46,7 @@ import { ModoService } from './services/modo.service';
 	  SecuenciaService, 
 	  DecalajeOrigenService, 
 	  DesplazamientoService,
-	  ActualizacionPosicionHerramientaService,
+	  PosicionHerramientaService,
 		VelocidadService,
 		ModoService
 	],
